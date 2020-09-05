@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Write some very large text and send it to your friends!">
+  <title>Very Large Text</title>
+  <style>
+   html, body {
+     height: 100%;
+     margin: 0;
+   }
+   body {
+     align-items: center;
+     display: flex;
+     justify-content: center;
+   }
+   div {
+     cursor: text;
+     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+     font-size: 10vmin;
+     text-align: center;
+     width: 100%;
+   }
+   div:empty::before {
+     color: gray;
+     content: 'Type...';
+   }
+   div:focus {
+     outline: 0;
+   }
+  </style>
+  <div contenteditable spellcheck="false"></div>
+  <script>
+   var qs = new URLSearchParams(window.location.search);
+   var t = qs.get('t');
+   var div = document.querySelector('div');
+   div.innerText = t;
+   div.addEventListener('input', function() {
+     if (div.innerText) {
+       qs.set('t', div.innerText);
+       history.replaceState(null, '', location.pathname + '?' + qs.toString());
+     } else {
+       history.replaceState(null, '', location.pathname);
+     }
+   });
+  </script>
+</html>
