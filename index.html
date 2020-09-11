@@ -42,6 +42,7 @@
    var t = qs.get('t');
    var div = document.querySelector('div');
    div.innerText = t;
+   if (!div.innerText) div.focus();
    div.addEventListener('input', function() {
      if (div.innerText) {
        qs.set('t', div.innerText);
